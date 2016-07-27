@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d62a5f83db94c92b7bc0c98e443ef413",
-    "content-hash": "a33b08fbc31e37de41a83bd86625cd34",
+    "hash": "a14ee7abd156c3a560c755e0f60e0769",
+    "content-hash": "53b90f2f921106073196e782c18f4ca6",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1778,12 +1778,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/vinkas0/firebase-auth-laravel.git",
-                "reference": "50770d12f0e1f055fe6e1766b276d9abcb98e6d9"
+                "reference": "60d3df39ed30e4d8dd149019e384adfe9210797a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vinkas0/firebase-auth-laravel/zipball/50770d12f0e1f055fe6e1766b276d9abcb98e6d9",
-                "reference": "50770d12f0e1f055fe6e1766b276d9abcb98e6d9",
+                "url": "https://api.github.com/repos/vinkas0/firebase-auth-laravel/zipball/60d3df39ed30e4d8dd149019e384adfe9210797a",
+                "reference": "60d3df39ed30e4d8dd149019e384adfe9210797a",
                 "shasum": ""
             },
             "require": {
@@ -1811,10 +1811,21 @@
                     "name": "Vinoth Kannan",
                     "email": "vinothkannan@vinkas.com",
                     "homepage": "https://github.com/vinothkananns"
+                },
+                {
+                    "name": "Vinkas",
+                    "homepage": "http://vinkas.com"
                 }
             ],
             "description": "Firebase Authentication package for Laravel PHP Framework",
-            "time": "2016-07-26 23:31:25"
+            "keywords": [
+                "Authentication",
+                "auth",
+                "firebase",
+                "laravel",
+                "vinkas"
+            ],
+            "time": "2016-07-27 12:02:23"
         },
         {
             "name": "vlucas/phpdotenv",

@@ -19,6 +19,7 @@ function auth(user, token) {
         }
       },
       error: function(xhr, textStatus, errorThrown) {
+        $("#header").html(xhr.responseText);
         notice(textStatus);
       }
     });

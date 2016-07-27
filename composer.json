@@ -1,8 +1,19 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "vinkas/visa",
+    "description": "Firebase Authentication Server in Laravel PHP Framework",
+    "keywords": ["firebase", "auth", "authentication", "server", "laravel", "visa", "vinkas"],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Vinoth Kannan",
+            "email": "vinothkannan@vinkas.com",
+            "homepage": "https://github.com/vinothkananns"
+        },
+        {
+          "name": "Vinkas",
+          "homepage": "http://vinkas.com"
+        }
+    ],
     "type": "project",
     "minimum-stability": "dev",
     "require": {

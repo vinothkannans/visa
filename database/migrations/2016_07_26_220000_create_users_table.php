@@ -13,10 +13,10 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->string('id')->primary();
+            $table->string('name')->nullable();
+            $table->string('email')->nullable()->unique();
+            $table->string('photo_url')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        Schema::drop('firebase_users');
     }
 }
