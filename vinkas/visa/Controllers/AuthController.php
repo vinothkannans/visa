@@ -4,11 +4,18 @@ namespace Vinkas\Visa\Controllers;
 
 use Vinkas\Firebase\Auth\Http\AuthController as BaseController;
 use App\User;
+use Illuminate\Http\Request;
 
 abstract class AuthController extends BaseController
 {
 
   protected $firebaseAuthView = "vinkas.visa.auth";
+  protected $firebaseProjectId;
+
+  public function postAuth(Request $request) {
+    $this->firebaseProjectId = config('vinkas.visa.project_id');
+    return parent::postAuth($request);
+  }
 
   /**
    * Create a new user instance after a valid registration.

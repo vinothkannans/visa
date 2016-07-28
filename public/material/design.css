@@ -1,0 +1,30 @@
+a {
+  text-decoration: none;
+}
+
+.page-content a {
+  font-weight: normal;
+}
+
+.mdl-align_center {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.mdl-layout__header-row.small {
+  height: 32px;
+}
+
+.mdl-layout__header-row.logo {
+  height: 72px;
+}
+.mdl-layout__header-row.logo img {
+  max-height: 72px;
+}

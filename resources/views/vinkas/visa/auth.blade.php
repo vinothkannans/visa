@@ -1,29 +1,13 @@
-@extends('material.skeleton')
+@extends('material.vinkas.visa')
 
-@section('body')
-  <header id="header">
-    <div class="text-center">
-      <a href="/" class="logo"><img src="/images/logo.png" /></a>
-    </div>
-  </header>
-  <div class="container">
-    <div class="page-header text-center">
-      <h1 class="h3">{{ getEnv('APP_NAME')}} account</h1>
-    </div>
-    <div id="noticeboard" class="noticeboard"></div>
-  </div>
+@section('content')
+<section class="mdl-grid">
 
-  <div class="auth container">
-    <div class="row">
-      <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
-        <div class="row">
-          <div class="col-sm-8 col-xs-10 col-sm-offset-2 col-xs-offset-1">
-            <div id="firebaseui-auth-container"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <h4 class="mdl-cell mdl-cell--12-col mdl-typography--headline mdl-align_center">Sign in to continue&nbsp;<a href="#" class="mdl-color-text--primary"></a></h4>
+  <div id="noticeboard"></div>
+  <div id="firebaseui" class="mdl-cell mdl-cell--12-col mdl-align_center"></div>
+  <div class="mdl-cell mdl-cell--12-col"></div>
+  <a href="#" class="mdl-cell mdl-cell--12-col mdl-align_center">go back</a>
 
   <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase-auth.js"></script>
@@ -31,18 +15,18 @@
   <script>
   var token = "{{ csrf_token() }}";
   var config = {
-    apiKey: "{{ config('vinkas.firebase.auth.api_key') }}",
-    authDomain: "{{ config('vinkas.firebase.auth.auth_domain') }}",
+    apiKey: "{{ config('vinkas.visa.api_key') }}",
+    authDomain: "{{ config('vinkas.visa.auth_domain') }}",
   };
   firebase.initializeApp(config);
   </script>
   @if (Auth::check())
   @else
-  <script src='/vinkas/firebase/auth.js'></script>
+  <script src='/vinkas/visa/auth.js'></script>
   @endif
   <script>
   function notice(message) {
-    $("#noticeboard").html('<div class="alert alert-warning alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> ' + message + '</div>');
+    showSnack(message, 10000, 'OK', null);
   }
   </script>
   <script src="https://www.gstatic.com/firebasejs/ui/live/0.4/firebase-ui-auth.js"></script>
@@ -71,10 +55,7 @@
   };
 
   var ui = new firebaseui.auth.AuthUI(firebase.auth());
-  ui.start('#firebaseui-auth-container', uiConfig);
+  ui.start('#firebaseui', uiConfig);
   </script>
-
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-</body>
-</html>
+</div>
 @endsection

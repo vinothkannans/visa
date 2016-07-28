@@ -1778,12 +1778,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/vinkas0/firebase-auth-laravel.git",
-                "reference": "8f2331d91d584e4a9b6dbf32e7c47f2b71b10668"
+                "reference": "5a02a074868fc72b50203a748dcbaff6f9cb3620"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vinkas0/firebase-auth-laravel/zipball/8f2331d91d584e4a9b6dbf32e7c47f2b71b10668",
-                "reference": "8f2331d91d584e4a9b6dbf32e7c47f2b71b10668",
+                "url": "https://api.github.com/repos/vinkas0/firebase-auth-laravel/zipball/5a02a074868fc72b50203a748dcbaff6f9cb3620",
+                "reference": "5a02a074868fc72b50203a748dcbaff6f9cb3620",
                 "shasum": ""
             },
             "require": {
@@ -1825,7 +1825,7 @@
                 "laravel",
                 "vinkas"
             ],
-            "time": "2016-07-28 08:53:54"
+            "time": "2016-07-28 13:02:55"
         },
         {
             "name": "vlucas/phpdotenv",
