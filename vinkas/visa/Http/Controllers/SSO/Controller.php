@@ -5,15 +5,17 @@ namespace Vinkas\Visa\Http\Controllers\SSO;
 use Auth;
 use App\Http\Controllers\Controller as BaseController;
 use Illuminate\Http\Request;
-use Vinkas\Visa\Exceptions\SSO\NonceException;
+use Vinkas\Visa\Exceptions\SSO\Exception;
+use Vinkas\Visa\Models\SSO\Client;
 
 abstract class Controller extends BaseController {
 
   private $input;
-  private $secret;
-  private $callbackUrl;
   private $user;
+  private $client;
+  private $nonce;
 
+  protected $client_key = "client";
   protected $payload_key = "payload";
   protected $signature_key = "signature";
   protected $nonce_key = "nonce";
@@ -21,16 +23,23 @@ abstract class Controller extends BaseController {
   protected $payload_response_key = "payload";
   protected $signature_response_key = "signature";
 
-  protected function setSecret($value) {
-    $this->secret = $value;
-  }
-
-  protected function setCallbackUrl($value) {
-    $this->callbackUrl = $value;
-  }
-
   protected function getCallbackUrl() {
-    return $this->callbackUrl;
+    return $this->getClient()->callback_url;
+  }
+
+  protected function getSecret() {
+    return $this->getClient()->secret;
+  }
+
+  protected function getClient() {
+    if($this->client)
+    return $this->client;
+    $name = $this->input[$this->client_key];
+    $client = Client::where('name', $name)->first();
+    if($client)
+    $this->client = $client;
+    return $this->client;
+    throw new Exception('Invalid client');
   }
 
   protected function getPayload() {
@@ -49,10 +58,6 @@ abstract class Controller extends BaseController {
     return $this->input[$this->signature_key];
   }
 
-  protected function getSecret() {
-    return $this->secret;
-  }
-
   protected function getUser() {
     if ($this->user)
     return $this->user;
@@ -67,6 +72,7 @@ abstract class Controller extends BaseController {
     if($this->getUser()) {
       $this->setInput($request);
       if($this->isValid()) {
+        $request->flush();
         return redirect($this->getCallbackUrl() . '?' . $this->getResponseQuery());
       }
       return response('Bad SSO request', 403)->header('Content-Type', 'text/plain');
@@ -77,34 +83,38 @@ abstract class Controller extends BaseController {
   }
 
   protected function setInput(Request $request) {
-    if ($request->has($this->payload_key) && $request->has($this->signature_key)) {
+    if ($request->has($this->client_key) && $request->has($this->payload_key) && $request->has($this->signature_key)) {
       $this->setInputFromRequest($request);
-    } elseif ($request->old($this->payload_key) && $request->old($this->signature_key)) {
+    } elseif ($request->old($this->client_key) && $request->old($this->payload_key) && $request->old($this->signature_key)) {
       $this->setInputFromOld($request);
     }
   }
 
   protected function setInputFromRequest(Request $request) {
-    $this->input = $request->only([$this->payload_key, $this->signature_key]);
+    $this->input = $request->only([$this->client_key, $this->payload_key, $this->signature_key]);
   }
 
   protected function setInputFromOld($request) {
+    $client = $request->old($this->client_key);
     $payload = $request->old($this->payload_key);
     $signature = $request->old($this->signature_key);
-    $this->input = [$this->payload_key => $payload, $this->signature_key => $signature];
+    $this->input = [$this->client_key => $client, $this->payload_key => $payload, $this->signature_key => $signature];
   }
 
   protected function isValid() {
-    $haveInput = ($this->input[$this->payload_key] && $this->input[$this->signature_key]);
-    return (($this->getRequestPayloadSignature() === $this->getSignature()) && $haveInput);
+    $valid = ($this->input[$this->payload_key] && $this->input[$this->signature_key] && $this->getClient() && $this->getNonceFromPayload());
+    return ($valid && ($this->getRequestPayloadSignature() === $this->getSignature()));
   }
 
-  protected function getNonceFromPayload(){
+  protected function getNonceFromPayload() {
+    if($this->nonce)
+    return $this->nonce;
     $payloads = array();
     parse_str(base64_decode($this->getDecodedPayload()), $payloads);
     if(!array_key_exists($this->nonce_key, $payloads))
-    throw new NonceException('Invalid payload');
-    return $payloads[$this->nonce_key];
+    return false;
+    $this->nonce = $payloads[$this->nonce_key];
+    return $this->nonce;
   }
 
   public function getResponseParameters() {

@@ -5,6 +5,7 @@ namespace Vinkas\Visa\Http\Controllers;
 use Vinkas\Firebase\Auth\Http\AuthController as BaseController;
 use App\User;
 use Illuminate\Http\Request;
+use Auth;
 
 abstract class AuthController extends BaseController
 {
@@ -14,7 +15,10 @@ abstract class AuthController extends BaseController
 
   public function postAuth(Request $request) {
     $this->firebaseProjectId = config('vinkas.visa.project_id');
-    return parent::postAuth($request);
+    $response = parent::postAuth($request);
+    if(Auth::check() && $request->old('client'))
+    return redirect()->route('discourse');
+    return $response;
   }
 
   /**
