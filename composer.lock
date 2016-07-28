@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a14ee7abd156c3a560c755e0f60e0769",
+    "hash": "919bb974b875540c167615bc8f734bd2",
     "content-hash": "53b90f2f921106073196e782c18f4ca6",
     "packages": [
         {
@@ -1778,12 +1778,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/vinkas0/firebase-auth-laravel.git",
-                "reference": "60d3df39ed30e4d8dd149019e384adfe9210797a"
+                "reference": "8f2331d91d584e4a9b6dbf32e7c47f2b71b10668"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vinkas0/firebase-auth-laravel/zipball/60d3df39ed30e4d8dd149019e384adfe9210797a",
-                "reference": "60d3df39ed30e4d8dd149019e384adfe9210797a",
+                "url": "https://api.github.com/repos/vinkas0/firebase-auth-laravel/zipball/8f2331d91d584e4a9b6dbf32e7c47f2b71b10668",
+                "reference": "8f2331d91d584e4a9b6dbf32e7c47f2b71b10668",
                 "shasum": ""
             },
             "require": {
@@ -1825,7 +1825,7 @@
                 "laravel",
                 "vinkas"
             ],
-            "time": "2016-07-27 12:02:23"
+            "time": "2016-07-28 08:53:54"
         },
         {
             "name": "vlucas/phpdotenv",

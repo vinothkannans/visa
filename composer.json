@@ -33,6 +33,7 @@
             "database"
         ],
         "psr-4": {
+            "Vinkas\\Visa\\": "vinkas/visa/",
             "App\\": "app/"
         }
     },

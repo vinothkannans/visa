@@ -2,11 +2,11 @@
 
 namespace App;
 
-use Vinkas\Firebase\Auth\User as Authenticatable;
+use Vinkas\Visa\User as Authenticatable;
 
 class User extends Authenticatable
 {
 
-    protected $table = "users";
+    
 
 }
