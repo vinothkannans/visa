@@ -151,6 +151,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         Vinkas\Firebase\Auth\ServiceProvider::class,
+        Vinkas\Visa\Providers\RouteServiceProvider::class,
 
         /*
          * Application Service Providers...

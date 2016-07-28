@@ -1,6 +1,6 @@
 <?php
 
-namespace Vinkas\Visa\Controllers;
+namespace Vinkas\Visa\Http\Controllers;
 
 use Vinkas\Firebase\Auth\Http\AuthController as BaseController;
 use App\User;
