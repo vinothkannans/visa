@@ -136,7 +136,8 @@ abstract class Controller extends BaseController {
       'nonce' => $this->getNonceFromPayload(),
       'external_id' => $user->id,
       'email' => $user->email,
-      'name' => $user->name
+      'name' => $user->name,
+      'username' => $user->username
     );
   }
 

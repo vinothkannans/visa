@@ -63,6 +63,7 @@ $('#form').bind('submit',function(e){
   return submit();
 });
 function submit() {
+  var username = $("#username").val();
   $("#p2").css('visibility', 'visible');
   $("#btnOk").prop('disabled', true);
   $("#form").prop('disabled', true);
@@ -74,17 +75,18 @@ function submit() {
       '_token': token
     },
     success: function(data){
-      if($("#username").val() == data.username) {
-        if(data.success) {
-          $("#username").removeClass('taken');
-          $("#username").addClass('available');
-        }
-        else {
-          $("#username").removeClass('available');
-          $("#username").addClass('taken');
-        }
-        $("#p2").css('visibility', 'hidden');
+      if(data.success) {
+        window.location.replace(data.redirectTo);
       }
+      else {
+        if(data.message)
+        showSnack(data.message, 10000, 'OK', null);
+        else if(data.redirectTo)
+        window.location.replace(data.redirectTo);
+        else
+        showSnack("Error", 10000, 'OK', null);
+      }
+      $("#p2").css('visibility', 'hidden');
     },
     error: function(xhr, textStatus, errorThrown) {
       if(textStatus != "abort") {
@@ -125,7 +127,6 @@ function checkAvailability(username) {
     error: function(xhr, textStatus, errorThrown) {
       if(textStatus != "abort") {
         $("#p2").css('visibility', 'hidden');
-        showSnack(textStatus, 10000, 'OK', null);
       }
     }
   });

@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Validator;
 use Auth;
+use Vinkas\Visa\Http\Controllers\SSO\DiscourseController as Discourse;
 
 class UsernameController extends Controller
 {
 
   protected $bladeView = "vinkas.visa.username";
+  private $callback_url;
 
   public function __construct() {
     $this->middleware('auth');
@@ -42,7 +44,8 @@ class UsernameController extends Controller
       $user = Auth::user();
       if($user) {
         $user->username = $username;
-        $user->save;
+        $user->save();
+        if($request->session()->has(Discourse::CLIENT)) $this->callback_url = route('discourse');
         return response()->json(['success' => true, 'username' => $username, 'redirectTo' => $this->getRedirectPath()]);
       } else {
         return response()->json(['success' => false, 'username' => $username, 'redirectTo' => route('getAuth')]);
@@ -53,7 +56,7 @@ class UsernameController extends Controller
   }
 
   public function getRedirectPath() {
-    return "/";
+    return ($this->callback_url ? $this->callback_url : "/");
   }
 
 }

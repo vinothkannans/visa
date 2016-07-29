@@ -45,7 +45,7 @@
         if (currentUser.emailVerified) {
           auth(currentUser, token);
         } else {
-          notice("{!! trans('vinkas.firebase.auth.warning_verify_email') !!}");
+          notice("{!! trans('visa.warning_verify_email') !!}");
         }
         return false;
       }
