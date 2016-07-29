@@ -14,7 +14,7 @@ class CreateSsoClientsTable extends Migration
     {
         Schema::create('sso_clients', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('host')->unique();
             $table->uuid('secret');
             $table->string('callback_url');
             $table->boolean('active')->default(true);

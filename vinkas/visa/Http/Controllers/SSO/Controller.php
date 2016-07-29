@@ -10,12 +10,13 @@ use Vinkas\Visa\Models\SSO\Client;
 
 abstract class Controller extends BaseController {
 
+  const CLIENT = "client";
+
   private $input;
-  private $user;
   private $client;
+  private $user;
   private $nonce;
 
-  protected $client_key = "client";
   protected $payload_key = "payload";
   protected $signature_key = "signature";
   protected $nonce_key = "nonce";
@@ -34,8 +35,8 @@ abstract class Controller extends BaseController {
   protected function getClient() {
     if($this->client)
     return $this->client;
-    $name = $this->input[$this->client_key];
-    $client = Client::where('name', $name)->first();
+    $host = $this->input[self::CLIENT];
+    $client = Client::where('host', $host)->first();
     if($client)
     $this->client = $client;
     return $this->client;
@@ -68,37 +69,49 @@ abstract class Controller extends BaseController {
     return false;
   }
 
+  protected function putInSession(Request $request) {
+    $request->session()->put(self::CLIENT, $request->input(self::CLIENT));
+    $request->session()->put($this->payload_key, $request->input($this->payload_key));
+    $request->session()->put($this->signature_key, $request->input($this->signature_key));
+  }
+
+  protected function forgotInSession(Request $request) {
+    $request->session()->forget(self::CLIENT);
+    $request->session()->forget($this->payload_key);
+    $request->session()->forget($this->signature_key);
+  }
+
   public function get(Request $request) {
     if($this->getUser()) {
       $this->setInput($request);
       if($this->isValid()) {
-        $request->flush();
+        $this->forgotInSession($request);
         return redirect($this->getCallbackUrl() . '?' . $this->getResponseQuery());
       }
       return response('Bad SSO request', 403)->header('Content-Type', 'text/plain');
     } else {
-      $request->flashOnly([$this->payload_key, $this->signature_key]);
+      $this->putInSession($request);
       return redirect()->route('getAuth');
     }
   }
 
   protected function setInput(Request $request) {
-    if ($request->has($this->client_key) && $request->has($this->payload_key) && $request->has($this->signature_key)) {
+    if ($request->has(self::CLIENT) && $request->has($this->payload_key) && $request->has($this->signature_key)) {
       $this->setInputFromRequest($request);
-    } elseif ($request->old($this->client_key) && $request->old($this->payload_key) && $request->old($this->signature_key)) {
-      $this->setInputFromOld($request);
+    } elseif ($request->session()->has(self::CLIENT) && $request->session()->has($this->payload_key) && $request->session()->has($this->signature_key)) {
+      $this->setInputFromSession($request);
     }
   }
 
   protected function setInputFromRequest(Request $request) {
-    $this->input = $request->only([$this->client_key, $this->payload_key, $this->signature_key]);
+    $this->input = $request->only([self::CLIENT, $this->payload_key, $this->signature_key]);
   }
 
-  protected function setInputFromOld($request) {
-    $client = $request->old($this->client_key);
-    $payload = $request->old($this->payload_key);
-    $signature = $request->old($this->signature_key);
-    $this->input = [$this->client_key => $client, $this->payload_key => $payload, $this->signature_key => $signature];
+  protected function setInputFromSession($request) {
+    $client = $request->session()->get(self::CLIENT);
+    $payload = $request->session()->get($this->payload_key);
+    $signature = $request->session()->get($this->signature_key);
+    $this->input = [self::CLIENT => $client, $this->payload_key => $payload, $this->signature_key => $signature];
   }
 
   protected function isValid() {
