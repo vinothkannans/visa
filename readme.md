@@ -1,5 +1,9 @@
 # Vinkas Visa
 
+[![Latest Stable Version](https://poser.pugx.org/vinkas/visa/v/stable.svg)](https://packagist.org/packages/vinkas/visa)
+[![Latest Unstable Version](https://poser.pugx.org/vinkas/visa/v/unstable.svg)](https://packagist.org/packages/vinkas/visa)
+[![License](https://poser.pugx.org/vinkas/visa/license.svg)](https://packagist.org/packages/vinkas/visa)
+
 ## Firebase Authentication Server in Laravel PHP Framework
 
 ## Dependencies
