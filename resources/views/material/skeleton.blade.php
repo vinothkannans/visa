@@ -13,6 +13,7 @@
   <body class="mdl-base">
     @yield('body')
     <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script>
     function showSnack(message, timeout, actionText, actionHandler) {
       'use strict';
@@ -26,5 +27,6 @@
       snackbarContainer.MaterialSnackbar.showSnackbar(data);
     }
     </script>
+    @yield('script')
   </body>
   </html>

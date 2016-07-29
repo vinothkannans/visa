@@ -18,15 +18,20 @@ abstract class AuthController extends BaseController
   public function postAuth(Request $request) {
     $this->firebaseProjectId = config('vinkas.visa.project_id');
     if($request->session()->has(Discourse::CLIENT))
-      $this->callback_url = route('discourse');
+    $this->callback_url = route('discourse');
     $response = parent::postAuth($request);
     return $response;
   }
 
   public function redirectPath() {
-    if(Auth::check() && $this->callback_url)
-    return $this->callback_url;
-    return parent::redirectPath();
+    if(Auth::check()) {
+      $user = Auth::user();
+      if(!$user->username)
+      $this->callback_url = route('getUsername');
+    } else {
+      $this->callback_url = null;
+    }
+    return ($this->callback_url ? $this->callback_url : parent::redirectPath());
   }
 
   /**
