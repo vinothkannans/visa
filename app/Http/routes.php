@@ -10,9 +10,6 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('auth', 'Auth\AuthController@getAuth')->name('getAuth');
 Route::post('auth', 'Auth\AuthController@postAuth')->name('postAuth');
