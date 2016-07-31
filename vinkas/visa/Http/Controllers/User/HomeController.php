@@ -2,7 +2,7 @@
 
 namespace Vinkas\Visa\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
+use Vinkas\Visa\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Validator;
@@ -13,7 +13,7 @@ class HomeController extends Controller
 {
 
   public function get(Request $request) {
-    return view('welcome');
+    return redirect(getRedirectPath($request));
   }
 
 }
