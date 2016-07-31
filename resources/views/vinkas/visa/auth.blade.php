@@ -4,6 +4,7 @@
 <section class="mdl-grid">
 
   <h4 class="mdl-cell mdl-cell--12-col mdl-typography--headline mdl-align_center">Sign in to continue&nbsp;<a href="#" class="mdl-color-text--primary"></a></h4>
+  <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate firebaseui-container" style="visibility: hidden;"></div>
   <div id="firebaseui" class="mdl-cell mdl-cell--12-col mdl-align_center"></div>
   <div class="mdl-cell mdl-cell--12-col"></div>
   <!--<a href="#" class="mdl-cell mdl-cell- -12-col mdl-align_center">go back</a>-->
@@ -24,6 +25,7 @@
   @endif
   <script>
   function notice(message) {
+    $("#p2").css('visibility', 'hidden');
     showSnack(message, 10000, 'OK', null);
   }
   </script>
@@ -43,6 +45,7 @@
     'callbacks': {
       'signInSuccess': function(currentUser, credential, redirectUrl) {
         if (currentUser.emailVerified) {
+          $("#p2").css('visibility', 'visible');
           auth(currentUser, token);
         } else {
           notice("{!! trans('visa.warning_verify_email') !!}");

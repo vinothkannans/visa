@@ -13,7 +13,7 @@ class HomeController extends Controller
 {
 
   public function get(Request $request) {
-    return redirect(getRedirectPath($request));
+    return redirect($this->getRedirectPath($request));
   }
 
 }
