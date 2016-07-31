@@ -7,18 +7,22 @@ use App\User;
 use Illuminate\Http\Request;
 use Auth;
 use Vinkas\Visa\Http\Controllers\SSO\DiscourseController as Discourse;
+use Vinkas\Visa\Traits\Redirects;
 
 abstract class AuthController extends BaseController
 {
 
+  use Redirects;
+  
+  const CLIENT = "client";
+
   protected $firebaseAuthView = "vinkas.visa.auth";
   protected $firebaseProjectId;
-  private $callback_url;
+  protected $redirectTo;
 
   public function postAuth(Request $request) {
     $this->firebaseProjectId = config('vinkas.visa.project_id');
-    if($request->session()->has(Discourse::CLIENT))
-    $this->callback_url = route('discourse');
+    $this->redirectTo = $this->getRedirectPath($request);
     $response = parent::postAuth($request);
     return $response;
   }
@@ -27,11 +31,9 @@ abstract class AuthController extends BaseController
     if(Auth::check()) {
       $user = Auth::user();
       if(!$user->username)
-      $this->callback_url = route('getUsername');
-    } else {
-      $this->callback_url = null;
+      $this->redirectTo = route('getUsername');
     }
-    return ($this->callback_url ? $this->callback_url : parent::redirectPath());
+    return $this->redirectTo;
   }
 
   /**

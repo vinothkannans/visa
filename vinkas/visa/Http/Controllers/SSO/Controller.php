@@ -3,14 +3,12 @@
 namespace Vinkas\Visa\Http\Controllers\SSO;
 
 use Auth;
-use App\Http\Controllers\Controller as BaseController;
+use Vinkas\Visa\Http\Controllers\Controller as BaseController;
 use Illuminate\Http\Request;
 use Vinkas\Visa\Exceptions\SSO\Exception;
 use Vinkas\Visa\Models\SSO\Client;
 
 abstract class Controller extends BaseController {
-
-  const CLIENT = "client";
 
   private $input;
   private $client;
