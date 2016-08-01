@@ -17,7 +17,7 @@ class RedirectIfUnsecured
   */
   public function handle($request, Closure $next, $guard = null)
   {
-    if ( (!$request->secure()) && config('vinkas.visa.redirect_to_https')) {
+    if ( (!$request->secure()) && config('vinkas.visa.force_https')) {
       return redirect()->secure($request->path());
     }
 

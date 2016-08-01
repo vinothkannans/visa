@@ -2,7 +2,7 @@
 
 return [
 
-  'redirect_to_https' => env('REDIRECT_TO_HTTPS', false),
+  'force_https' => env('FORCE_HTTPS', false),
 
   'default_redirect_url' => env('DEFAULT_REDIRECT_URL', null),
 
