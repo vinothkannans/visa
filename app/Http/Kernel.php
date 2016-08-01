@@ -15,6 +15,7 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \Vinkas\Visa\Http\Middleware\RedirectIfUnsecured::class,
     ];
 
     /**

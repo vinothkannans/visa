@@ -2,6 +2,8 @@
 
 return [
 
+  'redirect_to_https' => env('REDIRECT_TO_HTTPS', false),
+
   'default_redirect_url' => env('DEFAULT_REDIRECT_URL', null),
 
   'project_id' => env('FIREBASE_PROJECT_ID', null),
