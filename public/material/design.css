@@ -28,3 +28,7 @@ a {
 .mdl-layout__header-row.logo img {
   max-height: 72px;
 }
+
+.mdl-layout__header-row.mdl-align_center {
+  padding: 0;
+}
